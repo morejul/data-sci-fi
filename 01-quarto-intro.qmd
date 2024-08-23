@@ -1,0 +1,582 @@
+---
+title: "Introduction to Quarto"
+#date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "21 August 2024"
+format: 
+  revealjs:
+    smaller: false
+    scrollable: true
+    theme: default
+    footer: "STA5073Z Data Science for Industry"
+    slide-number: true
+    show-slide-number: print
+    echo: true
+    embed-resources: true
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+# Quarto basics
+
+## What is Quarto?
+
+::: columns
+::: {.column width="35%"}
+-   Renders plain text containing code
+-   Code in multiple languages: R, Python, Julia, Observable
+-   Multiple output formats: html, docx, tex, pdf
+:::
+
+::: {.column width="65%"}
+![R code](images/quarto-R.png){width="600px," fig-align="center"}
+:::
+:::
+
+## What is Quarto?
+
+::: columns
+::: {.column width="35%"}
+-   Renders plain text containing code
+-   Code in multiple languages: R, Python, Julia, Observable
+-   Multiple output formats: html, docx, tex, pdf
+:::
+
+::: {.column width="65%"}
+![Python code](images/quarto-Py.png){width="600px," fig-align="center"}
+:::
+:::
+
+## What is Quarto?
+
+::: columns
+::: {.column width="35%"}
+-   Renders plain text containing code
+-   Code in multiple languages: R, Python, Julia, Observable
+-   Multiple output formats: html, docx, tex, pdf
+:::
+
+::: {.column width="65%"}
+![Julia code](images/quarto-Julia.png){width="600px," fig-align="center"}
+:::
+:::
+
+## Why Quarto?
+
+Literate programming
+
+-   Compilable code embedded in narrative text
+-   Text can be documentation or traditional report
+-   Widely used in scientific computing esp. in data science
+-   Facilitates open, reproducible research
+
+## How does Quarto work? {.nostretch}
+
+![](images/quarto-workflow.png){width="65%" fig-align="center"}
+
+-   Create a YAML header (global options)
+-   Write text in markdown
+-   Add code blocks
+-   Render the document to desired output format
+
+## Rendering {.nostretch}
+
+![](images/quarto-workflow2.png){width="100%" fig-align="center"}
+
+-   Depending on code language, an engine for generating dynamic reports is chosen (e.g. knitr)
+-   Engine executes code to produce a markdown document that includes code and output
+-   Pandoc (another engine) turns the markdown file into the final
+-   All this gets done by the "Render" button
+
+## What do you need to get started?
+
+1.  Quarto (download [here](https://quarto.org/))
+2.  Authoring tool (RStudio, Jupyter Lab, VS Code, any text editor)
+
+-   Quarto comes with RStudio
+-   R package `quarto` provides some extra functionality
+
+# Anatomy of a Quarto document
+
+## YAML header
+
+````{verbatim}
+---
+title: "Data Science for Industry assignment 1"
+author: "Your name here"
+format: html
+editor: visual
+execute:
+  echo: true
+---
+````
+
+-   Demarcated by three dashes (`---`) on either end
+-   Note indentation
+-   The basic syntax of YAML uses key-value pairs in the format key: value
+-   https://quarto.org/docs/reference/formats/html.html
+
+## YAML header
+
+````{verbatim}     
+---
+title: "Introduction to Quarto"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+format: 
+  revealjs:
+      chalkboard: true
+      scrollable: true
+      theme: default
+      footer: "STA5073Z Data Science for Industry"
+      slide-number: true
+      show-slide-number: print
+      echo: true
+---
+````
+
+## Markdown text
+
+- Plain text formatted using markdown syntax
+
+````{verbatim}
+Italics with *asterisks* or _underscores_.
+Bold, with **asterisks** or __underscores__.
+Combined emphasis with **asterisks and _underscores_**.
+Strikethrough uses two tildes. ~~Scratch this.~~
+````
+
+- Italics with *asterisks* or _underscores_.
+- Bold, with **asterisks** or __underscores__.
+- Combined emphasis with **asterisks and _underscores_**.
+- Strikethrough uses two tildes. ~~Scratch this.~~
+
+## Markdown text
+
+````{verbatim}
+* Unordered list can use asterisks
+- Or minuses
++ Or pluses
+````
+
+* Unordered list can use asterisks
+- Or minuses
++ Or pluses
+
+## Markdown text
+
+````{verbatim}
+* Unordered list can use asterisks, minuses or pluses
+  - But indentation matters
+    + But indentation matters
+  + Indentation matters
+````
+
+* Unordered list can use asterisks, minuses or pluses
+  - But indentation matters
+    + But indentation matters
+  + Indentation matters
+
+## Code
+
+R Code:
+
+````{verbatim}
+```{r, echo = FALSE}
+data(mtcars)
+summary(mtcars$mpg)
+```
+````
+
+Produces: 
+
+```{r, echo = FALSE}
+data(mtcars)
+summary(mtcars$mpg)
+```
+
+## Code
+
+Chunk options as YAML with `#|`
+
+````{verbatim}
+```{r}
+#| echo: false
+data(mtcars)
+summary(mtcars$mpg)
+```
+````
+
+Produces: 
+
+```{r}
+#| echo: false
+data(mtcars)
+summary(mtcars$mpg)
+```
+
+## Code
+
+R Code:
+
+````{verbatim}
+```{r, echo = FALSE}
+data(mtcars)
+summary(mtcars$mpg)
+```
+````
+
+Syntax:
+
+- 3 ticks on either side followed by {} with some code
+- Ticks indicate start and end of code section
+- `{r, options}` is `knitr` syntax saying how R should read and display code 
+
+# Figures
+
+## Inserting figures
+
+````{verbatim}
+![A caption](images/Seec.png)
+````
+
+![A caption](images/Seec.png)
+
+## Positioning figures {.nostretch}
+
+````{verbatim}
+![](images/Seec.png){fig-align="left"}
+````
+
+![](images/Seec.png){fig-align="left"}
+
+## Positioning figures {.nostretch}
+
+````{verbatim}
+![](images/Seec.png){fig-align="center"}
+````
+
+![](images/Seec.png){fig-align="center"}
+
+## Resizing figures {.nostretch}
+
+````{verbatim}
+![](images/Seec.png){fig-align="center" width="75%"}
+````
+
+![](images/Seec.png){fig-align="center" width="75%"}
+
+## Subfigures {.nostretch}
+
+````{verbatim}
+::: {#fig-git layout-ncol=3}
+![Step 1](images/gitproj1.png){width="300px"}
+
+![Step 2](images/gitproj2.png){width="300px"}
+
+![Step 3](images/gitproj3.png){width="300px"}
+
+Linking an R project with GitHub
+:::
+````
+
+## Subfigures 
+
+::: {#fig-git layout-ncol=3}
+![Step 1](images/gitproj1.png){width="33%"}
+
+![Step 2](images/gitproj2.png){width="33%"}
+
+![Step 3](images/gitproj3.png){width="33%"}
+
+Linking an R project with GitHub
+:::
+
+## Stacking figures
+
+```{verbatim}
+::: {.r-stack}
+![](images/gitproj1.png){.fragment width="600"}
+
+![](images/gitproj2.png){.fragment width="550"}
+
+![](images/gitproj3.png){.fragment width="500"}
+:::
+```
+
+::: {.r-stack}
+![](images/gitproj1.png){.fragment width="600"}
+
+![](images/gitproj1.png){.fragment width="550"}
+
+![](images/gitproj3.png){.fragment width="500"}
+:::
+
+## Tables
+
+#### Markdown Syntax
+
+``` markdown
+| Right | Left | Default | Center |
+|------:|:-----|---------|:------:|
+|   12  |  12  |    12   |    12  |
+|  123  |  123 |   123   |   123  |
+|    1  |    1 |     1   |     1  |
+```
+
+#### Output
+
+| Right | Left | Default | Center |
+|------:|:-----|---------|:------:|
+|    12 | 12   | 12      |   12   |
+|   123 | 123  | 123     |  123   |
+|     1 | 1    | 1       |   1    |
+
+## Diagrams
+
+- Quarto supports creating diagrams with [Mermaid](https://mermaid-js.github.io/mermaid/#/) and [Graphviz](https://graphviz.org/) diagrams
+- flowcharts, sequence diagrams, state diagrams, Gantt charts, and more 
+- Plain markdown-like text syntax
+
+````{verbatim}
+```{mermaid}
+%%| echo: off
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+```
+````
+
+## Diagrams
+
+- Quarto supports creating diagrams with [Mermaid](https://mermaid-js.github.io/mermaid/#/) and [Graphviz](https://graphviz.org/) diagrams
+- flowcharts, sequence diagrams, state diagrams, Gantt charts, and more 
+- Plain markdown-like text syntax
+
+```{mermaid}
+%%| echo: off
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+```
+
+## Math notation
+
+``` markdown
+This generates an equation like $X\sim N(\mu,\sigma^2)$ that appears inline
+```
+
+This generates an equation like $E = mc^{2}$ that appears inline
+
+``` markdown
+Put more important equations like $$X\sim N(\mu,\sigma^2)$$ onto their own line
+```
+
+Put more important equations like $$E = mc^{2}$$ onto their own line
+
+## Callout blocks
+
+``` markdown
+:::{.callout-tip}
+There are five types of callouts, including: 
+`note`, `tip`, `warning`, `caution`, and `important`.
+:::
+```
+
+:::{.callout-tip}
+There are five types of callouts, including: 
+`note`, `tip`, `warning`, `caution`, and `important`.
+:::
+
+- Callouts draw extra attention to certain concepts 
+- Type changes colour and icon of the callout
+- Learn more on callouts [here](https://quarto.org/docs/authoring/callouts.html)
+
+# Presentations
+
+## Overview
+
+Quarto supports a variety of formats for creating presentations, including:
+
+- revealjs (HTML)
+- PowerPoint
+- Beamer (LaTeX/PDF)
+
+These use the same markdown syntax as other documents, just adapt YAML and use #, ## to delineate slides.
+
+## HTML slides
+
+``` markdown
+---
+title: "Quarto presentations"
+author: "Me"
+format: 
+  revealjs:
+      theme: default
+---
+
+## This is a slide
+
+- Point 1
+- Point 2
+
+## Another slide
+
+- More points
+- More points
+```
+
+## HTML slides
+
+![](images/revealjs-slides.png)
+
+## Powerpoint slides
+
+``` markdown
+---
+title: "Quarto presentations"
+author: "Me"
+format: pptx
+---
+
+## This is a slide
+
+- Point 1
+- Point 2
+
+## Another slide
+
+- More points
+- More points
+```
+
+## Powerpoint slides
+
+![](images/ppt-slides.png)
+
+## Powerpoint slides 
+
+``` markdown
+---
+title: "Quarto presentations"
+author: "Me"
+format:
+  pptx:
+    reference-doc: mytemplate.pptx
+---
+
+## This is a slide
+
+- Point 1
+- Point 2
+
+## Another slide
+
+- More points
+- More points
+```
+
+## Powerpoint slides
+
+![](images/ppt-slides-from-template.png)
+
+# Websites
+
+## Overview
+
+- Quarto Websites are just HTML files 
+- They share navigational elements and a common structure
+- Mainly implemented through the YAML
+
+## YAML
+
+::: columns
+::: {.column width="50%"}
+
+```markdown
+---
+project:
+  type: website
+
+website:
+  title: "A Quarto Website"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - addition.qmd
+      - multiplication.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+---
+```
+:::
+
+::: {.column width="50%"}
+- Save as `_quarto.yml`
+- Render in terminal with `quarto preview` and `quarto render`
+- Let's look the .qmd files making up the website
+:::
+:::
+
+## index.qmd
+
+```markdown
+---
+title: "Welcome!"
+---
+
+This is a Quarto website.
+
+To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+```
+
+## addition.qmd
+
+````{verbatim}
+---
+title: "Adding numbers in R"
+---
+
+To add numbers in R use `+`
+
+```{r}
+1 + 1
+```
+````
+
+## multiplication.qmd
+
+````{verbatim}
+---
+title: "Multiplying numbers in R"
+---
+
+To multiply numbers in R use `*`
+
+```{r}
+2 * 3
+```
+````
+
+## Final website
+
+![](images/testsite.png)
+
+## Sources and further resources
+
+- [https://quarto.org/](https://quarto.org/)
+- [https://quarto.org/docs/guide/](https://quarto.org/docs/guide/) (most of this lecture taken from here)
+- [https://quarto.org/docs/gallery/](https://quarto.org/docs/gallery/)
+- [https://quarto.org/docs/reference/](https://quarto.org/docs/reference/)
+- [https://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/](https://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/)
+
